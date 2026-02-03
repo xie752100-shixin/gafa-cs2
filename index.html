@@ -1,0 +1,109 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAFA CS2 赛事中心</title>
+    <link rel="icon" href="./images/guangzomeishuxueyuan.png" type="image/png">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">GAFA CS2</div>
+    <div class="menu-group">
+        <a href="#">赛事</a>
+        <a href="#">赛程</a>
+        <a href="#">数据统计</a>
+        <a href="#">创建比赛</a>
+    </div>
+    <div class="menu-group">
+        <a href="#">赞助</a>
+        <a href="#">登录</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- [顺序 1] 进行中的赛事 -->
+    <div class="section-header"><h2>进行中的赛事</h2></div>
+    <div class="tournament-list" id="tournament-list"></div>
+
+    <!-- 赛事基本信息 -->
+    <div class="event-header">
+        <div class="event-logo-box">MAJOR</div>
+        <div class="event-info">
+            <h1 class="event-title" id="current-event-title">加载中...</h1>
+            <p class="event-subtitle" id="current-event-subtitle">...</p>
+        </div>
+    </div>
+    <div class="event-stats">
+        <div class="stat-box">
+            <span class="label">奖金池</span>
+            <span class="value" id="stat-prize">...</span>
+        </div>
+        <div class="stat-box">
+            <span class="label">参赛战队</span>
+            <span class="value" id="stat-teams">...</span>
+        </div>
+        <div class="stat-box">
+            <span class="label">阶段状态</span>
+            <span class="value" id="stat-status">...</span>
+        </div>
+    </div>
+
+    <!-- [顺序 2] 淘汰赛程 -->
+    <div class="section-header"><h2>淘汰赛程 (8强)</h2></div>
+    <div class="bracket-wrapper" id="bracket-container">
+        <!-- JS 填入 -->
+    </div>
+
+    <!-- [顺序 3] 参赛队伍 -->
+    <div class="section-header"><h2>参赛队伍</h2></div>
+    <div class="teams-grid" id="teams-container">
+        <!-- JS 填入 -->
+    </div>
+
+    <!-- [顺序 4] 奖金分配 -->
+    <div class="section-header"><h2>奖金分配</h2></div>
+    <div class="prize-grid" id="prize-container">
+        <!-- JS 填入 -->
+    </div>
+
+</div>
+
+<!-- [新功能] 比赛详情弹窗 (Modal) -->
+<!-- 默认是隐藏的，CSS 会控制它 -->
+<div id="match-modal" class="modal-overlay">
+    <div class="modal-content">
+        <!-- 关闭按钮 -->
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+
+        <!-- 头部：比分和队名 -->
+        <div class="modal-header" id="modal-header-content">
+            <!-- JS 填入 -->
+        </div>
+
+        <!-- 地图数据 -->
+        <div class="modal-section-title">地图数据</div>
+        <div class="modal-maps" id="modal-maps-content">
+            <!-- JS 填入 -->
+        </div>
+
+        <!-- 选手数据 -->
+        <div class="modal-section-title">成员阵容 (Rating)</div>
+        <div class="modal-players-grid" id="modal-players-content">
+            <!-- JS 填入 -->
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="modal-footer">
+            <button class="btn-match-page">比赛页面</button>
+        </div>
+    </div>
+</div>
+
+<script src="./js/index.js"></script>
+</body>
+</html>

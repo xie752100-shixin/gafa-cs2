@@ -1,0 +1,324 @@
+/* css/index.css */
+
+/* --- 基础设置 --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background-color: #1b1e23;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif; /* 更现代的字体 */
+}
+
+/* 导航栏 */
+.navbar {
+    background-color: #2d363f;
+    padding: 0 20px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #3b424c;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.navbar .logo { color: #5d96c9; font-weight: bold; font-size: 20px; margin-right: 30px;}
+.menu-group a { color: #b8c1ca; text-decoration: none; margin: 0 15px; font-size: 14px; font-weight: 500;}
+.menu-group a:hover { color: #fff; }
+
+.container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+
+/* 统一的标题样式 */
+.section-header h2 {
+    font-size: 18px;
+    color: #5d96c9;
+    text-transform: uppercase;
+    margin: 40px 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3b424c;
+}
+
+/* --- [新功能] 赛事分组列表 --- */
+.tournament-list {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+/* 单个赛事卡片 */
+.tour-card {
+    background: #272d35;
+    padding: 15px 25px;
+    cursor: pointer;
+    border: 1px solid #353e49;
+    border-radius: 4px;
+    transition: all 0.2s;
+    min-width: 150px;
+}
+.tour-card:hover { background: #323b45; }
+/* 选中状态：边框变蓝，背景变亮 */
+.tour-card.active {
+    border-color: #5d96c9;
+    background: #323b45;
+    box-shadow: 0 0 10px rgba(93, 150, 201, 0.2);
+}
+.tour-name { font-weight: bold; font-size: 14px; display: block; margin-bottom: 5px;}
+.tour-status { font-size: 12px; color: #4CAF50; } /* 绿色代表进行中 */
+
+/* --- 赛事头部 --- */
+.event-header { display: flex; align-items: center; margin-bottom: 20px; }
+.event-logo-box {
+    width: 60px; height: 60px;
+    background: #5d96c9;
+    color: #fff;
+    font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    margin-right: 20px;
+    border-radius: 4px;
+}
+.event-title { font-size: 24px; margin-bottom: 5px; }
+.event-subtitle { color: #8fa0b5; font-size: 14px; }
+
+/* --- 统计数据 --- */
+.event-stats { display: flex; background: #272d35; padding: 20px; border-radius: 4px; gap: 60px; }
+.stat-box { display: flex; flex-direction: column; }
+.label { color: #8fa0b5; font-size: 12px; margin-bottom: 5px; text-transform: uppercase;}
+.value { font-weight: bold; font-size: 16px; }
+
+/* --- 奖金分配 --- */
+.prize-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+.prize-card {
+    background: #272d35;
+    padding: 15px;
+    border-left: 3px solid #444; /* 只有左边有颜色条 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.prize-card.rank-1 { border-left-color: #ffd700; background: #2e332a; }
+.prize-rank { color: #8fa0b5; font-size: 12px; }
+.prize-money { font-weight: bold; color: #fff; }
+
+/* --- 战队列表 --- */
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+.team-card {
+    background: #272d35;
+    border: 1px solid #353e49;
+}
+.team-header {
+    padding: 12px;
+    background: #323b45;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #444;
+}
+.team-flag {
+    font-size: 10px; color: #888; border: 1px solid #555;
+    padding: 2px 4px; margin-right: 10px; border-radius: 2px;
+}
+.team-name { font-weight: bold; font-size: 14px; }
+
+.player-list { padding: 10px; }
+.player-item {
+    font-size: 13px; color: #ccc; padding: 5px 0;
+    border-bottom: 1px solid #2e3640;
+    display: flex;
+}
+.player-role {
+    width: 20px; color: #666; font-size: 10px;
+    text-align: center; margin-right: 5px; border: 1px solid #3b424c; border-radius: 2px;
+}
+
+/* css/index.css 中的赛程部分 */
+
+/* --- 赛程图 (Bracket) --- */
+.bracket-wrapper {
+    display: flex;
+    justify-content: flex-start; /* 改为从左开始，因为内容变宽了 */
+    align-items: stretch;
+    background: #22262b;
+    padding: 30px 20px;
+    overflow-x: auto; /* 如果屏幕太窄，允许横向滚动 */
+    min-height: 450px; /* [关键] 固定最小高度，保证 SVG 线条对齐 */
+}
+
+/* 比赛列：8强列、4强列、决赛列 */
+.bracket-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; /* 让卡片垂直均匀分布 */
+    width: 180px; /* 固定卡片宽度 */
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0; /* 防止被挤压 */
+}
+
+/* 连线列：专门放 SVG */
+.bracket-lines {
+    width: 60px; /* 连线区域宽度 */
+    position: relative;
+    flex-shrink: 0;
+}
+
+.bracket-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* 比赛卡片微调 */
+.match-card {
+    background: #333d49;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-size: 12px;
+}
+.team-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+.team-row.winner span { color: #fff; font-weight: bold; }
+.team-row.loser span { color: #777; }
+.score {
+    background: #222;
+    color: #ccc;
+    padding: 0 8px;
+    border-radius: 2px;
+    min-width: 24px;
+    text-align: center;
+}
+.team-row.winner .score { background: #4CAF50; color: #fff; } /* 胜者绿底 */
+
+/* css/index.css - 添加到文件末尾 */
+
+/* --- 弹窗 (Modal) 样式 --- */
+.modal-overlay {
+    display: none; /* 默认隐藏 */
+    position: fixed; /* 固定在屏幕上，不随滚动条移动 */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
+    z-index: 1000; /* 保证在最顶层 */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff; /* 截图里是白色底，我们用浅灰偏白 */
+    width: 500px;
+    max-width: 90%;
+    border-radius: 4px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    font-family: Arial, sans-serif;
+    color: #333; /* 弹窗内字体用深色，因为背景是浅色 */
+}
+
+/* 关闭按钮 X */
+.close-btn {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+}
+.close-btn:hover { color: #000; }
+
+/* 弹窗头部：A队 VS B队 */
+.modal-match-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.modal-score {
+    font-size: 28px;
+    margin: 0 15px;
+    color: #d32f2f; /* 红色的比分 */
+}
+.modal-team-logo {
+    width: 40px; height: 40px;
+    background: #eee;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    margin: 0 10px;
+    font-size: 12px; color: #555;
+}
+
+/* 小标题 */
+.modal-section-title {
+    text-align: center;
+    color: #777;
+    font-size: 12px;
+    margin: 15px 0 10px 0;
+    text-transform: uppercase;
+}
+
+/* 地图列表 */
+.map-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.map-score-green { color: #2e7d32; } /* 胜者分数 */
+
+/* 选手数据表格 */
+.player-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+.p-name { width: 30%; font-weight: bold; color: #2d6da3; } /* 蓝色名字 */
+.p-rating { width: 20%; text-align: center; font-weight: bold; }
+.p-rating.high { color: #333; }
+.p-rating.low { color: #999; }
+.p-right { text-align: right; }
+
+/* 底部按钮 */
+.modal-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+.btn-match-page {
+    background-color: #2d6da3;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-match-page:hover { background-color: #23527c; }
+
+/* 修改原来的 match-card 样式，让它看起来可以点击 */
+.match-card {
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+.match-card:hover {
+    transform: scale(1.05); /* 鼠标放上去稍微放大 */
+    box-shadow: 0 0 8px rgba(93, 150, 201, 0.5); /* 蓝色发光 */
+}
